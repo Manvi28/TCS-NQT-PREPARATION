@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <climits>
+using namespace std;
+
+int majorityElement(vector<int>& nums) {
+
+    unordered_map<int, int> cnt;
+
+    for(int i = 0; i < nums.size(); i++) {
+        cnt[nums[i]]++;
+    }
+
+    int maxKey;
+    int maxValue = INT_MIN;
+
+    for(auto &it : cnt) {
+        if(it.second > maxValue) {
+            maxValue = it.second;
+            maxKey = it.first;
+        }
+    }
+
+    return maxKey;
+}
+
+int main() {
+
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    cout << majorityElement(nums);
+
+    return 0;
+}
