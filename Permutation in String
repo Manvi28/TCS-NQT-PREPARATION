@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+bool checkInclusion(string s1, string s2) {
+
+    int n = s2.size();
+    int k = s1.size();
+
+    if(k > n)
+        return false;
+
+    vector<int> freq1(26, 0);
+    vector<int> window(26, 0);
+
+    // Build frequency arrays
+    for(int i = 0; i < k; i++) {
+        freq1[s1[i] - 'a']++;
+        window[s2[i] - 'a']++;
+    }
+
+    if(freq1 == window)
+        return true;
+
+    // Sliding window
+    for(int i = k; i < n; i++) {
+
+        window[s2[i] - 'a']++;
+        window[s2[i - k] - 'a']--;
+
+        if(freq1 == window)
+            return true;
+    }
+
+    return false;
+}
+
+int main() {
+
+    string s1, s2;
+
+    cin >> s1;
+    cin >> s2;
+
+    if(checkInclusion(s1, s2))
+        cout << "true";
+    else
+        cout << "false";
+
+    return 0;
+}
