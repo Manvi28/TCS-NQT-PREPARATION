@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+string largestNumber(vector<int>& nums) {
+
+    // Convert integers to strings
+    vector<string> arr;
+
+    for(int num : nums) {
+        arr.push_back(to_string(num));
+    }
+
+    // Custom comparator
+    sort(arr.begin(), arr.end(), [](const string &a, const string &b) {
+        return (a + b) > (b + a);
+    });
+
+    // If the largest element is 0, answer is 0
+    if(arr[0] == "0")
+        return "0";
+
+    string ans;
+
+    for(string s : arr)
+        ans += s;
+
+    return ans;
+}
+
+int main() {
+
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    cout << largestNumber(nums);
+
+    return 0;
+}
